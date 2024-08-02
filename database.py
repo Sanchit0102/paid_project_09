@@ -4,7 +4,7 @@ import config
 client = motor.motor_asyncio.AsyncIOMotorClient(config.DB_URL)
 db = client[config.DB_NAME]
 users = db.users
-
+DS = int(users)
 #insert user data
 async def insert(user_id):
     user_det = {"_id": user_id}
