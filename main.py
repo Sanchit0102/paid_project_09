@@ -2,9 +2,10 @@ import os
 import config
 import time
 import asyncio
-from pyrogram import Client, filters
+from pyrogram import Client, filters, errors
+from pyrogram.errors import FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from database import getid, insert
+from database import insert, total_user, getid, delete
 
 # ==========================[ Server Client ]=============================== # 
 
@@ -65,12 +66,41 @@ START_BUTTONS = InlineKeyboardMarkup(
 
 # Bot.run()
 
+@Bot.on_message(filters.private & filters.user(config.ADMIN) & filters.command(["broadcast"]))
+async def broadcast(bot, message):
+    if (message.reply_to_message):
+        ds = await message.reply_text("Bot Processing.\nI am checking all bot users.")
+        all_users = await getid()
+        tot = await total_user()
+        success = 0
+        failed = 0
+        deactivated = 0
+        blocked = 0
+        await ds.edit(f"bot ʙʀᴏᴀᴅᴄᴀsᴛɪɴɢ started...")
+        async for user in all_users:
+            try:
+                time.sleep(1)
+                await message.reply_to_message.copy(user['_id'])
+                success += 1
+            except errors.InputUserDeactivated:
+                deactivated +=1
+                await delete({"_id": user['_id']})
+            except errors.UserIsBlocked:
+                blocked +=1
+                await delete({"_id": user['_id']})
+            except Exception as e:
+                failed += 1
+                await delete({"_id": user['_id']})
+                pass
+            try:
+                await ds.edit(f"<u>ʙʀᴏᴀᴅᴄᴀsᴛ ᴘʀᴏᴄᴇssɪɴɢ</u>\n\n• ᴛᴏᴛᴀʟ ᴜsᴇʀs: {tot}\n• sᴜᴄᴄᴇssғᴜʟ: {success}\n• ʙʟᴏᴄᴋᴇᴅ ᴜsᴇʀs: {blocked}\n• ᴅᴇʟᴇᴛᴇᴅ ᴀᴄᴄᴏᴜɴᴛs: {deactivated}\n• ᴜɴsᴜᴄᴄᴇssғᴜʟ: {failed}")
+            except FloodWait as e:
+                await asyncio.sleep(e.x)
+        await ds.edit(f"<u>ʙʀᴏᴀᴅᴄᴀsᴛ ᴄᴏᴍᴘʟᴇᴛᴇᴅ</u>\n\n• ᴛᴏᴛᴀʟ ᴜsᴇʀs: {tot}\n• sᴜᴄᴄᴇssғᴜʟ: {success}\n• ʙʟᴏᴄᴋᴇᴅ ᴜsᴇʀs: {blocked}\n• ᴅᴇʟᴇᴛᴇᴅ ᴀᴄᴄᴏᴜɴᴛs: {deactivated}\n• ᴜɴsᴜᴄᴄᴇssғᴜʟ: {failed}")
 
 
-
-@Bot.on_message(filters.command("start"))
+@Bot.on_message(filters.private & filters.command(["start"]))
 def start_command(client, message):
-    # Send a photo with a caption and an inline keyboard button
     photo_url = config.START_IMG
     caption = config.START_TEXT
     reply_markup = START_BUTTONS
@@ -82,7 +112,13 @@ def send_auto_message():
         time.sleep(300)  # 2 hours interval
         users = get_users_to_send_message()  # Implement this function to get users who started the bot
         for user in users:
-            BOT.send_message(user, "This is an automated message sent every 2 hours.")
+            BOT.send_message(
+                user,
+                photo=config.REPEAT_IMG,
+                caption=config.REPEAT_TXT,
+                disable_web_page_preview=True,
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔥 Join Now 🔥", url=f"https://t.me/+oMv-bxaGMXVkNmE0")]])
+            )
 
 # Start the auto message sender
 send_auto_message()
