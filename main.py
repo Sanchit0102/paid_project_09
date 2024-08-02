@@ -38,7 +38,7 @@ async def start(bot, message):
 
 async def send_image_message(chat_id):
     await Bot.send_photo(
-        chat_id=chat_id,
+        chat_id=message.chat_id,
         photo=config.REPEAT_IMG,
         caption=config.REPEAT_TXT,
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔥 Join Now 🔥", url=f"https://t.me/+oMv-bxaGMXVkNmE0")]])
