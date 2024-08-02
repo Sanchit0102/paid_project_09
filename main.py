@@ -44,13 +44,13 @@ async def send_broadcast_message(Bot):
     users = await Bot.get_users() # getid()
     user_ids = [user.id for user in users]
     # for user_id in users:
-        await Bot.send_photo(
-            user_ids,
-            photo=config.REPEAT_IMG,
-            text=config.REPEAT_TXT,
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔥 Join Now 🔥", url=f"https://t.me/+oMv-bxaGMXVkNmE0")]])
-        )
+    await Bot.send_photo(
+        user_ids,
+        photo=config.REPEAT_IMG,
+        text=config.REPEAT_TXT,
+        disable_web_page_preview=True,
+        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔥 Join Now 🔥", url=f"https://t.me/+oMv-bxaGMXVkNmE0")]])
+    )
 
 
 async def schedule_broadcast():
