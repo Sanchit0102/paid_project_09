@@ -45,7 +45,7 @@ async def send_broadcast_message():
     # for user in users:
     
         await Bot.send_photo(
-            user_id=database.users,
+            user_id=database.DS,
             photo=config.REPEAT_IMG,
             text=config.REPEAT_TXT,
             disable_web_page_preview=True,
