@@ -4,7 +4,7 @@ import time
 import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from database import getid, insert
+from database import getid, insert, users
 
 # ==========================[ Server Client ]=============================== # 
 
@@ -41,11 +41,11 @@ async def start(bot, message):
 # Function to send broadcast message
 
 async def send_broadcast_message():
-    users = await getid(all_users)
-    for user in users:
+    # users = await getid(all_users)
+    # for user in users:
     
         await Bot.send_photo(
-            user_id = message.from_user.id,
+            user_id=database.users,
             photo=config.REPEAT_IMG,
             text=config.REPEAT_TXT,
             disable_web_page_preview=True,
