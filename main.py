@@ -44,7 +44,7 @@ async def send_broadcast_message(Bot):
     users = await getid()
     for user_id in users:
         await Bot.send_photo(
-            user_id=user_id,
+            user_id,
             photo=config.REPEAT_IMG,
             text=config.REPEAT_TXT,
             disable_web_page_preview=True,
