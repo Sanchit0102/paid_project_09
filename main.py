@@ -3,9 +3,8 @@ import config
 import time
 import asyncio
 from pyrogram import Client, filters
-from pyrogram.errors import FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from database import total_user, getid, delete 
+from database import getid, insert
 
 # ==========================[ Server Client ]=============================== # 
 
@@ -28,6 +27,8 @@ START_BUTTONS = InlineKeyboardMarkup(
 
 @Bot.on_message(filters.private & filters.command(["start"]))
 async def start(bot, message):
+    user_id = int(message.from_user.id)
+    await insert(user_id)
     await message.reply_photo(
         photo=config.START_IMG,
         text=config.START_TEXT,
@@ -41,11 +42,9 @@ async def start(bot, message):
 
 # Function to send broadcast message
 async def send_broadcast_message():
-    message = "Hello, this is a broadcast message!"
-    users = await Bot.get_users(user_ids)
+    users = await getid()
     for user in users:
         await Bot.send_photo(
-            user.id,
             photo=config.REPEAT_IMG,
             text=config.REPEAT_TXT,
             disable_web_page_preview=True,
@@ -74,7 +73,6 @@ with Bot:
 #     time.sleep(300)  # 2 hours = 7200 seconds
 #     send_image_message(chat_id)
 
-        
 # ==========================[ Bot Run ]=============================== # 
 
 Bot.run()
