@@ -41,15 +41,15 @@ async def start(bot, message):
 # Function to send broadcast message
 
 async def send_broadcast_message():
-    users = await getid()
-    for user in users:
-        await Bot.send_photo(
-            chat_id=user,
-            photo=config.REPEAT_IMG,
-            text=config.REPEAT_TXT,
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔥 Join Now 🔥", url=f"https://t.me/+oMv-bxaGMXVkNmE0")]])
-        )
+    # users = await getid()
+    # for user in users:
+    await Bot.send_photo(
+        chat_id=user_id,
+        photo=config.REPEAT_IMG,
+        text=config.REPEAT_TXT,
+        disable_web_page_preview=True,
+        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔥 Join Now 🔥", url=f"https://t.me/+oMv-bxaGMXVkNmE0")]])
+     )
 
 async def schedule_broadcast():
     while True:
