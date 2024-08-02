@@ -2,6 +2,7 @@
 import os, re
 from os import getenv, environ
 id_pattern = re.compile(r'^.\d+$') 
+
 # ==========================[ Bot Config ]=============================== # 
 
 API_ID = int(getenv('API_ID', 25833520))
@@ -12,8 +13,8 @@ REPEAT_IMG = "https://graph.org/file/e913a80094926b1bb9778.jpg"
 CHANNEL_LINKS = ["https://t.me/channel1", "https://t.me/channel2", "https://t.me/channel3"]
 DB_URL = "mongodb+srv://immortal:5412ascs@immortal.jehlw9n.mongodb.net/?retryWrites=true&w=majority"
 DB_NAME = "tradingbot"
-ADMIN = [int(admin) if id_pattern.search(admin) else admin for admin in os.environ.get('ADMIN', '1562935405').split()]
-
+ADMIN = [int(admin) if id_pattern.search(admin) else admin for admin in getenv('ADMIN', '1562935405').split()]
+PORT = int(getenv("PORT", "8080"))
 
 # ==========================[ Start Text ]=============================== # 
 
