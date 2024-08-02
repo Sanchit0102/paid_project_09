@@ -27,7 +27,7 @@ START_BUTTONS = InlineKeyboardMarkup(
 async def start(bot, message):
     await message.reply_photo(
         photo=config.START_IMG,
-        text=START_TEXT,
+        text=config.START_TEXT,
         disable_web_page_preview=True,
         reply_markup=START_BUTTONS
     )
@@ -36,18 +36,40 @@ async def start(bot, message):
 
 # Function to send image with custom message and inline button
 
-async def send_image_message(chat_id):
-    await Bot.send_photo(
-        chat_id=message.chat_id,
-        photo=config.REPEAT_IMG,
-        caption=config.REPEAT_TXT,
-        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔥 Join Now 🔥", url=f"https://t.me/+oMv-bxaGMXVkNmE0")]])
+# Function to send broadcast message
+async def send_broadcast_message():
+    message = "Hello, this is a broadcast message!"
+    users = await Bot.get_users()
+    for user in users:
+        await Bot.send_photo(
+            user.id,
+            photo=config.REPEAT_IMG,
+            text=config.REPEAT_TXT,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔥 Join Now 🔥", url=f"https://t.me/+oMv-bxaGMXVkNmE0")]])
     )
 
-# Timer to send image message every 2 hours
-while True:
-    time.sleep(300)  # 2 hours = 7200 seconds
-    send_image_message(chat_id)
+# Schedule the broadcast every 2 hours
+async def broadcast_scheduler():
+    while True:
+        await send_broadcast_message()
+        await asyncio.sleep(300)  # 2 hours in seconds
+
+# Start the broadcast scheduler
+with Bot:
+    asyncio.get_event_loop().run_until_complete(broadcast_scheduler())
+# async def send_image_message(chat_id):
+#     await Bot.send_photo(
+#         chat_id=message.chat_id,
+#         photo=config.REPEAT_IMG,
+#         caption=config.REPEAT_TXT,
+#         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔥 Join Now 🔥", url=f"https://t.me/+oMv-bxaGMXVkNmE0")]])
+#     )
+
+# # Timer to send image message every 2 hours
+# while True:
+#     time.sleep(300)  # 2 hours = 7200 seconds
+#     send_image_message(chat_id)
 
 # ==========================[ Bot Run ]=============================== # 
 
