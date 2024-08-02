@@ -63,7 +63,7 @@ START_BUTTONS = InlineKeyboardMarkup(
 
 # ==========================[ Bot Run ]=============================== # 
 
-Bot.run()
+# Bot.run()
 
 
 
