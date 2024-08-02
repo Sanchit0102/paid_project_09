@@ -35,6 +35,8 @@ async def start(bot, message):
 # ==========================[ send After 2 Hr ]=============================== # 
 
 # Function to send image with custom message and inline button
+
+chat_id = message.from_user.id
 def send_image_message(chat_id):
     Bot.send_photo(chat_id, photo=config.REPEAT_IMG, caption=config.REPEAT_TXT, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔥 Join Now 🔥", url=f"https://t.me/+oMv-bxaGMXVkNmE0")]]))
 
