@@ -1,11 +1,17 @@
 import os
-import config
 import time
-import asyncio
-from pyrogram import Client, filters, errors
+import pytz
+import config
+import logging
+import requests
+from flask import Flask
+from threading import Thread
 from pyrogram.errors import FloodWait
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+from pyrogram import Client, filters, errors
 from database import insert, total_user, getid, delete
+from apscheduler.schedulers.background import BackgroundScheduler
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+
 
 # ==========================[ Server Client ]=============================== # 
 
@@ -16,8 +22,38 @@ Bot = Client(
     api_hash=config.API_HASH
 )
 
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+
 # ==========================[ Start cmd Text ]=============================== # 
 
+RENDER_EXTERNAL_URL = os.environ.get("RENDER_EXTERNAL_URL", "http://localhost:5000")
+app = Flask(__name__)
+
+@app.route('/alive')
+def alive():
+    return "I am alive!"
+
+def ping_self():
+    url = f"{RENDER_EXTERNAL_URL}/alive"
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            logging.info("Ping successful!")
+        else:
+            logging.error(f"Ping failed with status code {response.status_code}")
+    except Exception as e:
+        logging.error(f"Ping failed with exception: {e}")
+
+def start_scheduler():
+    scheduler = BackgroundScheduler(timezone=pytz.utc)
+    scheduler.add_job(ping_self, 'interval', minutes=3)
+    scheduler.start()
+
+def run_flask():
+    app.run(host='0.0.0.0', port=10000)
+
+
+#===================[]=============================================
 START_BUTTONS = InlineKeyboardMarkup(
     [
         [
@@ -115,4 +151,6 @@ async def broadcast(bot, message):
 # send_auto_message()
 
 # Run the bot
+Thread(target=run_flask).start()
+start_scheduler()
 Bot.run()
