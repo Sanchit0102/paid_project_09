@@ -107,21 +107,21 @@ def start_command(client, message):
     client.send_photo(message.chat.id, photo=photo_url, caption=caption, reply_markup=reply_markup)
 
 # Function to send auto messages every 2 hours to users who started the bot
-def send_auto_message():
-    while True:
-        time.sleep(300)  # 2 hours interval
-        users = get_users_to_send_message()  # Implement this function to get users who started the bot
-        for user in users:
-            BOT.send_message(
-                user,
-                photo=config.REPEAT_IMG,
-                caption=config.REPEAT_TXT,
-                disable_web_page_preview=True,
-                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔥 Join Now 🔥", url=f"https://t.me/+oMv-bxaGMXVkNmE0")]])
-            )
+# def send_auto_message():
+#     while True:
+#         time.sleep(300)  # 2 hours interval
+#         users = get_users_to_send_message()  # Implement this function to get users who started the bot
+#         for user in users:
+#             BOT.send_message(
+#                 user,
+#                 photo=config.REPEAT_IMG,
+#                 caption=config.REPEAT_TXT,
+#                 disable_web_page_preview=True,
+#                 reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔥 Join Now 🔥", url=f"https://t.me/+oMv-bxaGMXVkNmE0")]])
+#             )
 
-# Start the auto message sender
-send_auto_message()
+# # Start the auto message sender
+# send_auto_message()
 
 # Run the bot
 Bot.run()
