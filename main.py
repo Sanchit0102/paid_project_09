@@ -40,7 +40,7 @@ async def start(bot, message):
 
 # Function to send broadcast message
 
-async def send_broadcast_message():
+async def send_broadcast_message(Bot):
     users = await getid()
     for user_id in users:
         await Bot.send_photo(
