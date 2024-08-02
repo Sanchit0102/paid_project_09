@@ -3,7 +3,9 @@ import config
 import time
 import asyncio
 from pyrogram import Client, filters
+from pyrogram.errors import FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+from database import total_user, getid, delete 
 
 # ==========================[ Server Client ]=============================== # 
 
@@ -40,7 +42,7 @@ async def start(bot, message):
 # Function to send broadcast message
 async def send_broadcast_message():
     message = "Hello, this is a broadcast message!"
-    users = await Bot.get_user_ids()
+    users = await Bot.get_users(user_ids)
     for user in users:
         await Bot.send_photo(
             user.id,
@@ -72,6 +74,7 @@ with Bot:
 #     time.sleep(300)  # 2 hours = 7200 seconds
 #     send_image_message(chat_id)
 
+        
 # ==========================[ Bot Run ]=============================== # 
 
 Bot.run()
