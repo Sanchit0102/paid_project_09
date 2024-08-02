@@ -54,7 +54,7 @@ async def send_broadcast_message(Bot):
 
 async def schedule_broadcast():
     while True:
-        await send_broadcast_message()
+        await send_broadcast_message(Bot)
         await asyncio.sleep(300)  # Sleep for 2 hours (7200 seconds)
 
 # Start the asyncio event loop
