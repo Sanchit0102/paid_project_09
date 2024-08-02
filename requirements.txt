@@ -1,4 +1,4 @@
-pyrogram
-pyrofork
-TgCrypto 
-time
+pyrogram==2.0.106
+pyrofork==2.3.37
+TgCrypto==1.2.5
+time==0.0.17
