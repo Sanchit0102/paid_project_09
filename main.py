@@ -38,9 +38,8 @@ async def start(bot, message):
 
 # ==========================[ send After 2 Hr ]=============================== # 
 
-# Function to send image with custom message and inline button
-
 # Function to send broadcast message
+
 async def send_broadcast_message():
     users = await getid()
     for user in users:
@@ -50,22 +49,15 @@ async def send_broadcast_message():
             text=config.REPEAT_TXT,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔥 Join Now 🔥", url=f"https://t.me/+oMv-bxaGMXVkNmE0")]])
-    )
+        )
 
-# # Schedule the broadcast every 2 hours
-# async def broadcast_scheduler():
-#     while True:
-#         await send_broadcast_message()
-#         await asyncio.sleep(300)  # 2 hours in seconds
+async def schedule_broadcast():
+    while True:
+        await send_broadcast_message()
+        await asyncio.sleep(300)  # Sleep for 2 hours (7200 seconds)
 
-# Start the broadcast scheduler
-# with Bot:
-    # asyncio.get_event_loop().run_until_complete(broadcast_scheduler())
-
-# # Timer to send image message every 2 hours
-while True:
-    time.sleep(300)  # 2 hours = 7200 seconds
-    send_broadcast_message()
+# Start the asyncio event loop
+asyncio.get_event_loop().run_until_complete(schedule_broadcast())
 
 # ==========================[ Bot Run ]=============================== # 
 
