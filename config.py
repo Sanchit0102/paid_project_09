@@ -10,7 +10,7 @@ BOT_TOKEN = str(getenv('BOT_TOKEN' , '6738059809:AAFfYft25qo-iKP-XpgLgq9ZCyhKoew
 START_IMG = "https://graph.org/file/8dc72eae13be09ff294ef.jpg"
 REPEAT_IMG = "https://graph.org/file/e913a80094926b1bb9778.jpg"
 CHANNEL_LINKS = ["https://t.me/channel1", "https://t.me/channel2", "https://t.me/channel3"]
-
+PORT = "10000"
 # ==========================[ Start Text ]=============================== # 
 
 START_TEXT = """<b>No wayyy!!!!! 🫡💰
