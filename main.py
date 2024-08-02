@@ -26,16 +26,16 @@ START_BUTTONS = InlineKeyboardMarkup(
     ]
 )
 
-# @Bot.on_message(filters.private & filters.command(["start"]))
-# async def start(bot, message):
-#     user_id = int(message.from_user.id)
-#     await insert(user_id)
-#     await message.reply_photo(
-#         photo=config.START_IMG,
-#         text=config.START_TEXT,
-#         disable_web_page_preview=True,
-#         reply_markup=START_BUTTONS
-#     )
+@Bot.on_message(filters.private & filters.command(["start"]))
+async def start(bot, message):
+    user_id = int(message.from_user.id)
+    await insert(user_id)
+    await message.reply_photo(
+        photo=config.START_IMG,
+        text=config.START_TEXT,
+        disable_web_page_preview=True,
+        reply_markup=START_BUTTONS
+    )
 
 # # ==========================[ send After 2 Hr ]=============================== # 
 
@@ -63,8 +63,6 @@ START_BUTTONS = InlineKeyboardMarkup(
 # asyncio.get_event_loop().run_until_complete(schedule_broadcast())
 
 # ==========================[ Bot Run ]=============================== # 
-
-# Bot.run()
 
 @Bot.on_message(filters.private & filters.user(config.ADMIN) & filters.command(["broadcast"]))
 async def broadcast(bot, message):
@@ -98,13 +96,6 @@ async def broadcast(bot, message):
                 await asyncio.sleep(e.x)
         await ds.edit(f"<u>ʙʀᴏᴀᴅᴄᴀsᴛ ᴄᴏᴍᴘʟᴇᴛᴇᴅ</u>\n\n• ᴛᴏᴛᴀʟ ᴜsᴇʀs: {tot}\n• sᴜᴄᴄᴇssғᴜʟ: {success}\n• ʙʟᴏᴄᴋᴇᴅ ᴜsᴇʀs: {blocked}\n• ᴅᴇʟᴇᴛᴇᴅ ᴀᴄᴄᴏᴜɴᴛs: {deactivated}\n• ᴜɴsᴜᴄᴄᴇssғᴜʟ: {failed}")
 
-
-@Bot.on_message(filters.private & filters.command(["start"]))
-def start_command(client, message):
-    photo_url = config.START_IMG
-    caption = config.START_TEXT
-    reply_markup = START_BUTTONS
-    client.send_photo(message.chat.id, photo=photo_url, caption=caption, reply_markup=reply_markup)
 
 # Function to send auto messages every 2 hours to users who started the bot
 # def send_auto_message():
