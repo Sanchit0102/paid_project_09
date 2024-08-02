@@ -51,27 +51,20 @@ async def send_broadcast_message():
             reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔥 Join Now 🔥", url=f"https://t.me/+oMv-bxaGMXVkNmE0")]])
     )
 
-# Schedule the broadcast every 2 hours
-async def broadcast_scheduler():
-    while True:
-        await send_broadcast_message()
-        await asyncio.sleep(300)  # 2 hours in seconds
+# # Schedule the broadcast every 2 hours
+# async def broadcast_scheduler():
+#     while True:
+#         await send_broadcast_message()
+#         await asyncio.sleep(300)  # 2 hours in seconds
 
 # Start the broadcast scheduler
-with Bot:
-    asyncio.get_event_loop().run_until_complete(broadcast_scheduler())
-# async def send_image_message(chat_id):
-#     await Bot.send_photo(
-#         chat_id=message.chat_id,
-#         photo=config.REPEAT_IMG,
-#         caption=config.REPEAT_TXT,
-#         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔥 Join Now 🔥", url=f"https://t.me/+oMv-bxaGMXVkNmE0")]])
-#     )
+# with Bot:
+    # asyncio.get_event_loop().run_until_complete(broadcast_scheduler())
 
 # # Timer to send image message every 2 hours
-# while True:
-#     time.sleep(300)  # 2 hours = 7200 seconds
-#     send_image_message(chat_id)
+while True:
+    time.sleep(300)  # 2 hours = 7200 seconds
+    send_broadcast_message()
 
 # ==========================[ Bot Run ]=============================== # 
 
