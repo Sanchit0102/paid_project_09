@@ -21,3 +21,6 @@ async def total_user():
 async def getid():
     all_users = users.find({})
     return all_users
+
+async def delete(id):
+    await users.delete_one(id)
