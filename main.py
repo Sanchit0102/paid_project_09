@@ -4,7 +4,7 @@ import time
 import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from database import getid, insert, DS
+from database import getid, insert
 
 # ==========================[ Server Client ]=============================== # 
 
