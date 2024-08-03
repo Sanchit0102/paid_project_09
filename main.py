@@ -24,7 +24,6 @@ Bot = Client(
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-# ==========================[ Start cmd Text ]=============================== # 
 
 RENDER_EXTERNAL_URL = os.environ.get("RENDER_EXTERNAL_URL", "http://localhost:5000")
 app = Flask(__name__)
@@ -53,7 +52,10 @@ def run_flask():
     app.run(host='0.0.0.0', port=10000)
 
 
-#===================[]=============================================
+# ==========================[ Start cmd Text ]=============================== # 
+
+user_ids = {}
+
 START_BUTTONS = InlineKeyboardMarkup(
     [
         [
@@ -80,14 +82,14 @@ async def start(bot, message):
 # # Function to send broadcast message
 
 async def send_broadcast_message(Bot):
-    users = await Bot.get_user_ids() # getid()
-    user_ids = [user.id for user in users]
+    users = await user_ids # getid()
+    user_ida = [user.id for users in user_ids]
     # for user_id in users:
     await Bot.send_photo(
-        user_ids,
+        user_ida,
         photo=config.REPEAT_IMG,
-        text=config.REPEAT_TXT,
-        disable_web_page_preview=True,
+        config=config.REPEAT_TXT,
+        parse_mode=enums.ParseMode.HTML,
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔥 Join Now 🔥", url=f"https://t.me/+oMv-bxaGMXVkNmE0")]])
     )
 
