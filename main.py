@@ -138,22 +138,7 @@ async def broadcast(bot, message):
         await ds.edit(f"<u>ʙʀᴏᴀᴅᴄᴀsᴛ ᴄᴏᴍᴘʟᴇᴛᴇᴅ</u>\n\n• ᴛᴏᴛᴀʟ ᴜsᴇʀs: {tot}\n• sᴜᴄᴄᴇssғᴜʟ: {success}\n• ʙʟᴏᴄᴋᴇᴅ ᴜsᴇʀs: {blocked}\n• ᴅᴇʟᴇᴛᴇᴅ ᴀᴄᴄᴏᴜɴᴛs: {deactivated}\n• ᴜɴsᴜᴄᴄᴇssғᴜʟ: {failed}")
 
 
-# Function to send auto messages every 2 hours to users who started the bot
-# def send_auto_message():
-#     while True:
-#         time.sleep(300)  # 2 hours interval
-#         users = get_users_to_send_message()  # Implement this function to get users who started the bot
-#         for user in users:
-#             BOT.send_message(
-#                 user,
-#                 photo=config.REPEAT_IMG,
-#                 caption=config.REPEAT_TXT,
-#                 disable_web_page_preview=True,
-#                 reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔥 Join Now 🔥", url=f"https://t.me/+oMv-bxaGMXVkNmE0")]])
-#             )
 
-# # Start the auto message sender
-# send_auto_message()
 
 # Run the bot
 Thread(target=run_flask).start()
