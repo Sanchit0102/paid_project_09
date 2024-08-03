@@ -7,7 +7,7 @@ import requests
 from flask import Flask
 from threading import Thread
 from pyrogram.errors import FloodWait
-from pyrogram import Client, filters, errors
+from pyrogram import Client, filters, errors, enums
 from database import insert, total_user, getid, delete
 from apscheduler.schedulers.background import BackgroundScheduler
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
@@ -69,7 +69,7 @@ async def start(bot, message):
     await message.reply_photo(
         photo=config.START_IMG,
         caption=config.START_TEXT,
-        disable_web_page_preview=True,
+        parse_mode=enums.ParseMode.HTML,
         reply_markup=START_BUTTONS
     )
 
