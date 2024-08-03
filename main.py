@@ -68,7 +68,7 @@ async def start(bot, message):
     await insert(user_id)
     await message.reply_photo(
         photo=config.START_IMG,
-        text=config.START_TEXT,
+        caption=config.START_TEXT,
         disable_web_page_preview=True,
         reply_markup=START_BUTTONS
     )
