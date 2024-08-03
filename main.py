@@ -103,7 +103,7 @@ async def schedule_broadcast():
 # Start the asyncio event loop
 asyncio.get_event_loop().run_until_complete(schedule_broadcast())
 
-# ==========================[ Bot Run ]=============================== # 
+# ==========================[ Broadcast ]=============================== # 
 
 @Bot.on_message(filters.private & filters.user(config.ADMIN) & filters.command(["broadcast"]))
 async def broadcast(bot, message):
